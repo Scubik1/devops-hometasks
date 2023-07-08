@@ -1,0 +1,46 @@
+Vagrant.configure("2") do |config|
+
+    config.vm.define "stat" do |stat|
+
+        stat.vm.box = "generic/debian11"
+
+        stat.vm.network "private_network", ip: "192.168.33.10"
+
+        stat.vm.provider "virtualbox" do |vb|
+           vb.name = "stat"
+           vb.memory = "512"
+        end
+
+        stat.vm.provision "file", source: "./index.html", destination: "~/"
+
+        stat.vm.provision "shell", inline: <<-SHELL
+           apt update -y
+           apt install -y apache2
+           cp /home/vagrant/index.html /var/www/html/
+           systemctl reload apache2 
+        SHELL
+    end
+
+    config.vm.define "dynamic" do |dynamic|
+
+        dynamic.vm.box = "generic/debian11"
+
+        dynamic.vm.network "private_network", ip: "192.168.33.11"
+
+        dynamic.vm.provider "virtualbox" do |vb|
+           vb.name = "dynamic"
+           vb.memory = "512"
+        end
+
+        dynamic.vm.provision "file", source: "./index.php", destination: "~/"
+        dynamic.vm.provision "file", source: "./000-default.conf", destination: "~/"
+
+        dynamic.vm.provision "shell", inline: <<-SHELL
+           apt update -y
+           apt install -y apache2 php
+           cp /home/vagrant/index.php /var/www/html/
+           cp /home/vagrant/000-default.conf /etc/apache2/sites-enabled/
+           systemctl reload apache2 
+        SHELL
+    end
+end
