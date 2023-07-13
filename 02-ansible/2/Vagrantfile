@@ -1,0 +1,34 @@
+Vagrant.configure("2") do |config|
+    config.vm.box = "generic/debian11"
+    config.vm.synced_folder  ".", "/home/vagrant/synced"
+    config.vm.provider "virtualbox" do |vb|
+        vb.memory = "1024"
+    end
+
+    config.vm.define "dynamic" do |dynamic|
+        dynamic.vm.provider "virtualbox" do |vb|
+            vb.name  = "dynamic"
+        end
+        dynamic.vm.network "private_network", ip: "192.168.33.11"
+    end
+
+    config.vm.define "nginx" do |nginx|
+        nginx.vm.provider "virtualbox" do |vb|
+            vb.name  = "nginx"
+        end
+        nginx.vm.network "private_network", ip: "192.168.33.12"
+    end
+
+    config.vm.define "stat" do |stat|
+        stat.vm.provider "virtualbox" do |vb|
+            vb.name  = "stat"
+        end
+        stat.vm.network "private_network", ip: "192.168.33.10"
+        stat.vm.provision "shell", inline: <<-SHELL
+            apt-get update
+            apt-get install -y ansible sshpass
+            cd synced/
+            ansible-playbook -i inventory playbook.yaml
+        SHELL
+    end
+end

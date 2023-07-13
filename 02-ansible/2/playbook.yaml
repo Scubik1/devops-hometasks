@@ -1,0 +1,70 @@
+---
+- name: Stat
+  hosts: stat
+  become: yes
+
+  tasks:
+  - name: Install package
+    apt:
+      name: 
+      - apache2
+      state: present
+      update_cache: true
+
+  - name: Copy files
+    copy:
+      src: /home/vagrant/synced/index.html
+      dest: /var/www/html/
+
+  - name: Reload Apach
+    service:
+      name: apache2
+      state: reloaded
+
+- name: Dynamic
+  hosts: dynamic
+  become: yes
+
+  tasks:
+  - name: Install packages
+    apt:
+      name: 
+      - apache2
+      - php
+      state: present
+      update_cache: true
+
+  - name: Copy files
+    copy:
+      src: "{{ item.src }}"
+      dest: "{{ item.dest }}"
+    with_items:
+    - { src: /home/vagrant/synced/index.php, dest: /var/www/html/ }
+    - { src: /home/vagrant/synced/000-default.conf, dest: /etc/apache2/sites-enabled/ }
+
+  - name: Reload Apach
+    service:
+      name: apache2
+      state: reloaded
+
+- name: Nginx
+  hosts: nginx
+  become: yes
+
+  tasks:
+  - name: Install package
+    apt:
+      name: 
+      - nginx
+      state: present
+      update_cache: true
+
+  - name: Copy file
+    copy:
+      src: /home/vagrant/synced/default
+      dest: /etc/nginx/sites-enabled/
+
+  - name: Reload Nginx
+    service:
+      name: nginx
+      state: reloaded

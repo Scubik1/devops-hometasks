@@ -1,0 +1,28 @@
+---
+- name: Test play
+  hosts: all
+  become: yes
+
+  tasks:
+  - name: Install packages
+    apt:
+      name: 
+      - apache2
+      - php
+      state: present
+      update_cache: true
+
+  - name: Copy files
+    copy:
+      src: "{{ item.src }}"
+      dest: "{{ item.dest }}"
+    with_items:
+    - { src: /home/vagrant/index.html, dest: /var/www/html/ }
+    - { src: /home/vagrant/index.php, dest: /var/www/html/ }
+    - { src: /home/vagrant/000-default.conf, dest: /etc/apache2/sites-enabled/ }
+    - { src: /home/vagrant/ports.conf, dest: /etc/apache2/ }
+
+  - name: Reload Apach
+    service:
+      name: apache2
+      state: reloaded
