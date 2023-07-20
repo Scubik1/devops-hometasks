@@ -1,0 +1,127 @@
+---
+- name: All
+  hosts: all
+  gather_facts: no
+  become: yes
+ 
+  tasks:
+  - name: Add GPG key
+    rpm_key:
+      key: https://yum.puppet.com/RPM-GPG-KEY-puppet-20250406
+      state: present
+
+  - name: Add Puppet repository
+    yum:
+      name: 
+      - https://yum.puppet.com/puppet7-release-el-8.noarch.rpm
+
+
+- name: Master of puppets
+  hosts: master.puppet
+  gather_facts: no
+  become: yes
+
+  tasks:
+  - name: Install packages
+    yum:
+      name: 
+      - puppetserver
+      - git
+      state: present
+      update_cache: true
+
+  - name: Edit config memory Puppet Server
+    lineinfile:
+      path: /etc/sysconfig/puppetserver
+      regexp: '^JAVA_ARGS='
+      line: 'JAVA_ARGS="-Xms512m -Xmx512m -Djruby.logger.class=com.puppetlabs.jruby_utils.jruby.Slf4jLogger"'
+    notify:
+      - Restart puppetserver
+
+  - name: Creat autosign.conf
+    copy:
+      dest: /etc/puppetlabs/puppet/autosign.conf
+      content: |
+        slave1.puppet
+        slave2.puppet
+
+  - name: Edit hosts    
+    blockinfile:
+      dest: /etc/hosts
+      block: |
+       - '192.168.50.10 slave1.puppet'
+       - '192.168.50.15 slave2.puppet'
+
+  - name: Add port to firewall
+    shell: firewall-cmd --add-port=8140/tcp --permanent    
+    notify:
+      - Restart firewall
+
+  - name: install r10k    
+    gem:
+      executable: /opt/puppetlabs/puppet/bin/gem
+      name: r10k
+      user_install: false
+      state: present
+
+  - name: Create dir for r10k config
+    file:
+      path: /etc/puppetlabs/r10k
+      state: directory
+
+  - name: Config r10k
+    copy:
+      dest: /etc/puppetlabs/r10k/r10k.yaml
+      content: | 
+        ---
+        :cachedir: '/var/cache/r10k'
+        :sources:
+          :my-org:
+            remote: 'https://github.com/Scubik1/Puppet-demo.git'
+            basedir: '/etc/puppetlabs/code/environments'
+
+  - name: Deploy r10k environment
+    shell: /opt/puppetlabs/puppet/bin/r10k deploy environment -p
+
+  handlers:
+    - name: Restart puppetserver
+      service: name=puppetserver state=restarted
+
+    - name: Restart firewall
+      service: name=firewalld state=restarted    
+
+
+- name: Slave Puppet
+  become: true
+  gather_facts: no
+  hosts: slave
+
+  tasks:
+  - name: Install puppet agent
+    yum:
+      pkg: puppet-agent
+      state: present
+
+  - name: Add master.puppet to /etc/hosts
+    lineinfile: 
+      path: /etc/hosts
+      line: '192.168.50.5 master.puppet'
+
+  - name: Agent settings
+    ini_file: 
+      path: /etc/puppetlabs/puppet/puppet.conf
+      owner: root
+      group: root
+      mode: '0644'
+      section: agent
+      option: "{{ item.option }}"
+      value: "{{ item.value }}"
+    with_items:
+    - { option: "server", value: "master.puppet" }
+    - { option: "runinterval", value: "1m" }
+    notify:
+      - Restart puppetserver
+
+  handlers:
+    - name: Restart puppet
+      service: name=puppet state=restarted
