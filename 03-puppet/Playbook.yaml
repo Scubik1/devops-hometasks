@@ -120,7 +120,7 @@
     - { option: "server", value: "master.puppet" }
     - { option: "runinterval", value: "1m" }
     notify:
-      - Restart puppetserver
+      - Restart puppet
 
   handlers:
     - name: Restart puppet
