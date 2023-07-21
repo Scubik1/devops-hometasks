@@ -101,6 +101,7 @@
     yum:
       pkg: puppet-agent
       state: present
+      update_cache: true
 
   - name: Add master.puppet to /etc/hosts
     lineinfile: 
