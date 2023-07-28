@@ -1,0 +1,17 @@
+---
+- name: Mkdir /var/lib/jenkins/jobs/wcg
+  file:
+    path: /var/lib/jenkins/jobs/wcg
+    state: directory
+    owner: jenkins
+    group: jenkins
+
+- name: Copy wcg-job config xml
+  copy:
+    src: files/wcg-job-config.xml
+    dest: /var/lib/jenkins/jobs/wcg/config.xml
+    owner: jenkins
+    group: jenkins
+  notify:
+    - daemon-reload
+    - restart jenkins

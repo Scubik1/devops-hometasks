@@ -1,0 +1,28 @@
+---
+- name: Jenkins key
+  get_url:
+    url: "https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key"
+    dest: /usr/share/keyrings/jenkins-keyring.asc
+
+- name: Add jenkins repository
+  shell: "echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] \
+            https://pkg.jenkins.io/debian-stable binary/ | sudo tee \
+            /etc/apt/sources.list.d/jenkins.list > /dev/null"
+  args:
+    creates: "/etc/apt/sources.list.d/jenkins.list"
+
+- name: Install packages
+  apt:
+    name:
+      - build-essential
+      - default-jre
+      - jq 
+    update_cache: true
+    state: present
+
+- name: Install jankens
+  apt:
+    name:
+      - jenkins
+    update_cache: true
+    state: present

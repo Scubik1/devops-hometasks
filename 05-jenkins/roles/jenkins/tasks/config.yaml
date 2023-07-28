@@ -1,0 +1,36 @@
+---
+- name: Create directory
+  file:
+    path: /var/lib/jenkins/init.groovy.d
+    state: directory
+    owner: jenkins
+    group: jenkins
+  
+- name: Copy user config
+  copy:
+    src: files/02-admin-user.groovy
+    dest: /var/lib/jenkins/init.groovy.d/02-admin-user.groovy
+    owner: jenkins
+    group: jenkins
+
+- name: Edit jawa setings
+  lineinfile:
+    path: /lib/systemd/system/jenkins.service
+    regexp: '^Environment="JAVA_OPTS=-Djava.awt.headless=true"$'
+    line: 'Environment="JAVA_OPTS=-Djava.awt.headless=true -Djenkins.install.runSetupWizard=false"'
+    backrefs: yes
+
+- name: Edit jenkins timeout
+  lineinfile:
+    path: /lib/systemd/system/jenkins.service
+    regexp: '^#TimeoutStartSec=90$'
+    line: 'TimeoutStartSec=180'
+    backrefs: yes
+
+- name: Daemon-reload
+  shell: systemctl daemon-reload
+
+- name: Restart jenkins
+  service:
+    name: jenkins
+    state: restarted
