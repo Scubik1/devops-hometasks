@@ -20,7 +20,7 @@
     update_cache: true
     state: present
 
-- name: Install jankens
+- name: Install jenkins
   apt:
     name:
       - jenkins

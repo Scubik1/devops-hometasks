@@ -57,12 +57,6 @@
       owner: vagrant
       group: vagrant
 
-  - name: Install jq
-    become: true
-    apt:
-      name: jq
-      state: present
-
   - name: Copy file wordcloud.service
     copy:
       src: "roles/jenkins/files//wordcloud.service"
