@@ -1,0 +1,61 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<flow-definition plugin="workflow-job@1316.vd2290d3341a_f">
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties/>
+  <definition class="org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition" plugin="workflow-cps@3731.ve4b_5b_857b_a_d3">
+    <script>pipeline {
+    agent any
+    tools{ go &apos;go-1.16&apos; }
+    options { timestamps() }
+    stages{
+        stage(&apos;Get code&apos;) {
+            steps {
+                git branch: &quot;$BRANCH&quot;, url: &apos;https://github.com/Scubik1/word-cloud-generator.git&apos;
+            }
+        }
+        stage(&apos;Lint and test&apos;) {
+            steps {
+                sh &apos;&apos;&apos;
+                    make lint
+                    make test
+                &apos;&apos;&apos;
+            }
+        }
+        stage(&apos;Build&apos;) {
+            steps {
+                sh &apos;&apos;&apos;
+                    sed -i &quot;s/1.DEVELOPMENT/1.$BUILD_NUMBER/g&quot; static/version
+                    GOOS=linux GOARCH=amd64 go build -o ./artifacts/word-cloud-generator -v
+                    md5sum artifacts/word-cloud-generator
+                    gzip -f artifacts/word-cloud-generator
+                    ls -l artifacts/
+                &apos;&apos;&apos;
+            }
+        }
+        stage(&apos;Upload artifacts&apos;) {
+            steps {
+                nexusArtifactUploader(
+                    credentialsId: &apos;nexus-creds&apos;,
+                    groupId: &quot;docker-$BRANCH&quot;,
+                    nexusUrl: &quot;$NEXUS_HOST:8081&quot;,
+                    nexusVersion: &apos;nexus3&apos;,
+                    protocol: &apos;http&apos;,
+                    repository: &apos;word-cloud-build&apos;,
+                    version: &apos;1.$BUILD_NUMBER&apos;,
+                    artifacts: [
+                        [artifactId: &apos;word-cloud-generator&apos;,
+                         classifier: &apos;&apos;,
+                         file: &apos;artifacts/word-cloud-generator.gz&apos;,
+                         type: &apos;gz&apos;]
+                    ]
+                )
+            }
+        }
+    }
+}</script>
+    <sandbox>true</sandbox>
+  </definition>
+  <triggers/>
+  <disabled>false</disabled>
+</flow-definition>

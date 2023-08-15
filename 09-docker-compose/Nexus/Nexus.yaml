@@ -1,0 +1,51 @@
+---
+- name: Nexus
+  hosts: all
+  become: true
+
+  tasks:
+  - name: Install packages
+    apt:
+      name:
+        - gpg
+        - rsync
+     
+  - name: Add key
+    apt_key:
+      url: https://packages.adoptium.net/artifactory/api/gpg/key/public
+
+  - name: Add repository
+    apt_repository:
+      repo: deb https://packages.adoptium.net/artifactory/deb buster main
+
+  - name: Install Java
+    apt:
+      name: temurin-8-jdk
+
+  - name: Install and config Nexus
+    include_role:
+      name: ansible-thoteam.nexus3-oss
+    vars:
+      nexus_timezone: 'Europe/Minsk'
+      nexus_admin_password: "{{ NEXUS_ADMIN_PASSWORD }}"
+      nexus_delete_default_repos: True
+      nexus_anonymous_access: false
+      nexus_config_raw: true
+      nexus_repos_raw_hosted:
+      - name: word-cloud-build
+        version_policy: release 
+        write_policy: allow_once
+        blob_store: default
+      nexus_roles:
+      - id: nx-uploader
+        name: nx-uploader
+        privileges:
+          - nx-repository-view-raw-word-cloud-build-*
+      nexus_local_users:
+      - username: "{{ NEXUS_USER }}"
+        first_name: Nexus
+        last_name: Nexusov
+        email: takogo@adresa.net
+        password: "{{ NEXUS_USER_PASSWORD }}"
+        roles:
+          - nx-uploader

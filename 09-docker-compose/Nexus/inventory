@@ -1,0 +1,6 @@
+[all]
+localhost ansible_connection=local
+[all:vars]
+NEXUS_ADMIN_PASSWORD=admin
+NEXUS_USER=uploader
+NEXUS_USER_PASSWORD=uploader
