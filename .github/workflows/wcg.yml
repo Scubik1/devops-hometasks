@@ -8,9 +8,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    env:
-      ghro_lc:
-
     steps:
     - name: Checkout wcg
       uses: actions/checkout@v3.5.3
@@ -25,7 +22,9 @@ jobs:
         password: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Lower case owner
-      run: ghro_lc=$(echo $GITHUB_REPOSITORY_OWNER | tr '[:upper:]' '[:lower:]')
+      run: |
+        echo "ghro_lc=$(echo $GITHUB_REPOSITORY_OWNER | tr '[:upper:]' '[:lower:]')" >> ${GITHUB_ENV}
+        echo "ghro_lc=$(echo $GITHUB_REPOSITORY_OWNER | tr '[:upper:]' '[:lower:]')"
 
     - name: Build and push Docker image
       uses: docker/build-push-action@v4.1.1
