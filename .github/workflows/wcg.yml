@@ -3,10 +3,13 @@ name: WCG
 on: 
   push:
   workflow_dispatch:
-  
+
 jobs:
   build:
     runs-on: ubuntu-latest
+
+    env:
+      ghro_lc:
 
     steps:
     - name: Checkout wcg
@@ -30,4 +33,4 @@ jobs:
         context: ./07-docker
         file: ./07-docker/Dockerfile.multi
         push: true
-        tags: ghcr.io/${ghro_lc}/wcg:latest, ghcr.io/${ghro_lc}/wcg:$GITHUB_SHA
+        tags: ghcr.io/${{ env.ghro_lc }}/wcg:latest, ghcr.io/${{ env.ghro_lc }}/wcg:${{ github.sha }}
