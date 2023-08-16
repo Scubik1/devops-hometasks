@@ -24,7 +24,6 @@ jobs:
     - name: Lower case owner
       run: |
         echo "ghro_lc=$(echo $GITHUB_REPOSITORY_OWNER | tr '[:upper:]' '[:lower:]')" >> ${GITHUB_ENV}
-        echo "ghro_lc=$(echo $GITHUB_REPOSITORY_OWNER | tr '[:upper:]' '[:lower:]')"
 
     - name: Build and push Docker image
       uses: docker/build-push-action@v4.1.1
