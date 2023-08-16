@@ -28,3 +28,4 @@ jobs:
         echo ${{ secrets.GITHUB_TOKEN }}
         # repository_owner=${{ github.repository_owner }}
         ghro_lc=$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')
+        echo $ghro_lc
