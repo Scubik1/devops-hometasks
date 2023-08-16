@@ -21,12 +21,15 @@ jobs:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Echo
-      run: |
-        echo $GITHUB_REPOSITORY_OWNER
-        echo ${{ github.actor }}
-        echo ${{ secrets.GITHUB_TOKEN }}
-        # repository_owner=${{ github.repository_owner }}
-        # ghro_lc=$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')
-        ghro_lc=$(echo $GITHUB_REPOSITORY_OWNER | tr '[:upper:]' '[:lower:]')
-        echo $ghro_lc
+    - name: Lower case owner
+      run: ghro_lc=$(echo $GITHUB_REPOSITORY_OWNER | tr '[:upper:]' '[:lower:]')
+
+
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v4.1.1
+      with:
+        context: ./07-docker
+        file: ./07-docker/Dockerfile.multi
+        push: true
+        tags: ghcr.io/${{ env.ghro_lc }}/wcg:latest, ghcr.io/${{ env.ghro_lc }}/wcg:$GITHUB_SHA
+       
