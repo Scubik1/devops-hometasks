@@ -48,4 +48,4 @@ jobs:
         context: ./07-docker
         file: ./07-docker/Dockerfile.multi
         push: true
-        tags: ghcr.io/${{ env.ghro_lc }}/wcg:latest, ghcr.io/${{ env.ghro_lc }}/wcg:${{ jobs.bump-tag.steps.tagbump.outputs.tag }}
+        tags: ghcr.io/${{ env.ghro_lc }}/wcg:latest, ghcr.io/${{ env.ghro_lc }}/wcg:${{ needs.bump-tag.steps.tagbump.outputs.tag }}
