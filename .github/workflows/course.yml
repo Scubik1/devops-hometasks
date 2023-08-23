@@ -10,7 +10,7 @@ jobs:
     permissions:
       contents: write
     steps:
-    - uses: actions/checkout@3.5.3
+    - uses: actions/checkout@master
       with:
         repository: Scubik1/devops-hometasks 
     - name: Bump version and push tag
