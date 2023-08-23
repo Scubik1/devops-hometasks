@@ -13,10 +13,12 @@ jobs:
     - uses: actions/checkout@master
       with:
         repository: Scubik1/devops-hometasks 
-    - name: Bump version and push tag
+    - name: bump
       uses: anothrNick/github-tag-action@1.67.0
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Echo
+      run: echo ${{ steps.bump.outputs.tag }}
 #   build:
 #     runs-on: ubuntu-latest
 
