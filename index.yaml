@@ -3,11 +3,20 @@ entries:
   wcg:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2023-08-24T14:48:40.7158408+03:00"
+    created: "2023-08-24T19:16:05.346166133Z"
     description: WCG Chart
     digest: e5274aa0a923c6a409ac6954e2392ccd3a68f59db8b14c7840c2692c71d8b35b
     name: wcg
     urls:
-    - https://github.io/Scubik1/devops-hometasks/wcg-1.0.0.tgz
+    - https://Scubik1.github.io/devops-hometasks/charts/wcg-1.0.0.tgz
     version: 1.0.0
-generated: "2023-08-24T14:48:40.7062557+03:00"
+  - apiVersion: v2
+    appVersion: 0.23.0
+    created: "2023-08-24T19:16:05.345741425Z"
+    description: WCG Chart
+    digest: c1ebf0d6d650395ed2cdf4cbe170d8db6c1ffafa4fd5f27d39a6ad2e8204adc3
+    name: wcg
+    urls:
+    - https://Scubik1.github.io/devops-hometasks/charts/wcg-0.23.0.tgz
+    version: 0.23.0
+generated: "2023-08-24T19:16:05.345022511Z"
