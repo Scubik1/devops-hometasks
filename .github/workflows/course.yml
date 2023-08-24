@@ -80,6 +80,7 @@ jobs:
 
     - name: Run chart-testing (list-changed)
       id: list-changed
+      # ${{ github.event.repository.default_branch }})
       run: |
         echo "${{ github.event.repository.default_branch }}"
         ls -lah /home/runner/work/devops-hometasks/devops-hometasks
@@ -90,7 +91,6 @@ jobs:
         pwd
         ct list-changed --chart-dirs charts/
         changed=$(ct list-changed --target-branch master) 
-        # ${{ github.event.repository.default_branch }})
         echo "$changed"
         if [[ -n "$changed" ]]; then
           echo "changed=true" >> "$GITHUB_OUTPUT"
