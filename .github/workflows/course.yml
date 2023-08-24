@@ -85,20 +85,20 @@ jobs:
       # ${{ github.event.repository.default_branch }})
       run: |
         echo "${{ github.event.repository.default_branch }}"
-        ls -lah /home/runner/work/devops-hometasks/devops-hometasks
-        ls -lah /home/runner/work/devops-hometasks/devops-hometasks/charts
-        ls -lah /home/runner/work/devops-hometasks/devops-hometasks/12-helm
+        # ls -lah /home/runner/work/devops-hometasks/devops-hometasks
+        # ls -lah /home/runner/work/devops-hometasks/devops-hometasks/charts
+        # ls -lah /home/runner/work/devops-hometasks/devops-hometasks/12-helm
         cat /home/runner/work/devops-hometasks/devops-hometasks/12-helm/Chart.yaml
         cat /home/runner/work/devops-hometasks/devops-hometasks/charts/Chart.yaml
         pwd
-        ct list-changed --chart-dirs charts/
-        ct lint --chart-dirs charts/
-        ct lint --target-branch master --chart-dirs charts/
-        ct lint --remote origin --target-branch master --chart-dirs charts/
-        ct lint --target-branch master
-        ct lint --target-branch ${{ github.event.repository.default_branch }}
-        ct lint
-        ct --help
+        # ct list-changed --chart-dirs charts/
+        # ct lint --chart-dirs charts/
+        # ct lint --target-branch master --chart-dirs charts/
+        # ct lint --remote origin --target-branch master --chart-dirs charts/
+        # ct lint --target-branch master
+        # ct lint --target-branch ${{ github.event.repository.default_branch }}
+        ct lint --all --chart-dirs /home/runner/work/devops-hometasks/devops-hometasks/charts/
+        ct --version
         changed=$(ct list-changed --target-branch master) 
         echo "$changed"
         if [[ -n "$changed" ]]; then
