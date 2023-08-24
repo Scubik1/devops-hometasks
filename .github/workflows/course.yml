@@ -61,7 +61,8 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3.5.3
       with:
-        repository: Scubik1/devops-hometasks
+        fetch-depth: 0
+        #repository: Scubik1/devops-hometasks
        # path: '12-helm'
 
     - name: Set up Helm
