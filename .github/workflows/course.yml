@@ -69,6 +69,7 @@ jobs:
       uses: azure/setup-helm@v3
       with:
         version: v3.12.1
+        yamale_version: 4.0.4
 
     - uses: actions/setup-python@v4
       with:
