@@ -5,54 +5,54 @@ on:
   workflow_dispatch:
 
 jobs:
-  bump-tag:
-    runs-on: ubuntu-latest
-    # permissions:
-    #   contents: write
-    steps:
+  # bump-tag:
+  #   runs-on: ubuntu-latest
+  #   # permissions:
+  #   #   contents: write
+  #   steps:
 
-    - name: Checkout
-      uses: actions/checkout@v3.5.3
-      with:
-        repository: Scubik1/devops-hometasks
-        fetch-depth: 0
+  #   - name: Checkout
+  #     uses: actions/checkout@v3.5.3
+  #     with:
+  #       repository: Scubik1/devops-hometasks
+  #       fetch-depth: 0
 
-    - name: bump
-      id: tagbump
-      uses: anothrNick/github-tag-action@1.67.0
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  #   - name: bump
+  #     id: tagbump
+  #     uses: anothrNick/github-tag-action@1.67.0
+  #     env:
+  #       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     
-    outputs:
-      tag: ${{ steps.tagbump.outputs.tag }}
+  #   outputs:
+  #     tag: ${{ steps.tagbump.outputs.tag }}
   
-  build:
-    needs: [bump-tag]
-    runs-on: ubuntu-latest
-    steps:
+  # build:
+  #   needs: [bump-tag]
+  #   runs-on: ubuntu-latest
+  #   steps:
    
-    - name: Checkout
-      uses: actions/checkout@v3.5.3
-      with:
-        repository: Scubik1/devops-hometasks
+  #   - name: Checkout
+  #     uses: actions/checkout@v3.5.3
+  #     with:
+  #       repository: Scubik1/devops-hometasks
 
-    - name: Login to GitHub Container Registry
-      uses: docker/login-action@v2.2.0
-      with:
-        registry: ghcr.io
-        username: ${{ github.actor }}
-        password: ${{ secrets.GITHUB_TOKEN }}
+  #   - name: Login to GitHub Container Registry
+  #     uses: docker/login-action@v2.2.0
+  #     with:
+  #       registry: ghcr.io
+  #       username: ${{ github.actor }}
+  #       password: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Lower case owner
-      run: echo "ghro_lc=$(echo $GITHUB_REPOSITORY_OWNER | tr '[:upper:]' '[:lower:]')" >> ${GITHUB_ENV}
+  #   - name: Lower case owner
+  #     run: echo "ghro_lc=$(echo $GITHUB_REPOSITORY_OWNER | tr '[:upper:]' '[:lower:]')" >> ${GITHUB_ENV}
 
-    - name: Build and push Docker image
-      uses: docker/build-push-action@v4.1.1
-      with:
-        context: ./07-docker
-        file: ./07-docker/Dockerfile.multi
-        push: true
-        tags: ghcr.io/${{ env.ghro_lc }}/wcg:latest, ghcr.io/${{ env.ghro_lc }}/wcg:${{ needs.bump-tag.outputs.tag }}
+  #   - name: Build and push Docker image
+  #     uses: docker/build-push-action@v4.1.1
+  #     with:
+  #       context: ./07-docker
+  #       file: ./07-docker/Dockerfile.multi
+  #       push: true
+  #       tags: ghcr.io/${{ env.ghro_lc }}/wcg:latest, ghcr.io/${{ env.ghro_lc }}/wcg:${{ needs.bump-tag.outputs.tag }}
 
   lint-test:
     runs-on: ubuntu-latest
