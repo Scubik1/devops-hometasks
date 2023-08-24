@@ -72,13 +72,14 @@ jobs:
 
     - uses: actions/setup-python@v4
       with:
-        python-version: '3.9.0'
+        python-version: '3.10.0'
         check-latest: true
 
     - name: Set up chart-testing
       uses: helm/chart-testing-action@v2.4.0
       with:
         version: 'v3.7.1'
+        yamale_version: 4.0.4
 
     - name: Run chart-testing (list-changed)
       id: list-changed
@@ -93,11 +94,11 @@ jobs:
         pwd
         # ct list-changed --chart-dirs charts/
         # ct lint --chart-dirs charts/
-        # ct lint --target-branch master --chart-dirs charts/
+        ct lint --target-branch master --chart-dirs charts/
         # ct lint --remote origin --target-branch master --chart-dirs charts/
         # ct lint --target-branch master
-        # ct lint --target-branch ${{ github.event.repository.default_branch }}
-        ct lint --all --chart-dirs /home/runner/work/devops-hometasks/devops-hometasks/charts/
+        ct lint --target-branch ${{ github.event.repository.default_branch }}
+        ct lint --all --chart-dirs charts/ --debug --check-version-increment
         ct version
         changed=$(ct list-changed --target-branch master) 
         echo "$changed"
