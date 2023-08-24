@@ -87,7 +87,7 @@ jobs:
         ls -lah /home/runner/work/devops-hometasks/devops-hometasks/12-helm
         cat /home/runner/work/devops-hometasks/devops-hometasks/12-helm/Chart.yaml
         cat /home/runner/work/devops-hometasks/devops-hometasks/charts/Chart.yaml
-        ct list-changed --remote origin --target-branch master
+        ct list-changed --remote origin --target-branch master --chart-dirs charts/
         changed=$(ct list-changed --target-branch ${{ github.event.repository.default_branch }})
         echo "$changed"
         if [[ -n "$changed" ]]; then
