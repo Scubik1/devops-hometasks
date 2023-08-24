@@ -72,8 +72,8 @@ jobs:
 
     - uses: actions/setup-python@v4
       with:
-        python-version: '3.9'
-        check-latest: true
+        python-version: '3.8'
+        #check-latest: true
 
     - name: Set up chart-testing
       uses: helm/chart-testing-action@v2.4.0
