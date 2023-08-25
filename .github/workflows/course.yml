@@ -136,10 +136,15 @@ jobs:
         
     - name: Add chart to repos
       run: | 
-        helm package 12-helm/ --app-version ${{ needs.bump-tag.outputs.tag }} --version ${{ needs.bump-tag.outputs.tag }} -d charts/
-        helm repo index --url https://Scubik1.github.io/devops-hometasks/ .
+        # helm package 12-helm/ --app-version ${{ needs.bump-tag.outputs.tag }} --version ${{ needs.bump-tag.outputs.tag }} -d charts/
+        # helm repo index --url https://Scubik1.github.io/devops-hometasks/ .
         git config --global user.email "takogo@adresa.net"
         git config --global user.name "My Name"
-        git add .
-        git commit -m "Updated Helm package"
-        git push origin main
+        # git add .
+        # git commit -m "Updated Helm package"
+        # git push origin main
+
+    - name: Run chart-releaser
+      uses: helm/chart-releaser-action@v1.4.0
+      env:
+        CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
