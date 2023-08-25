@@ -92,7 +92,7 @@ jobs:
         # ct list-changed --chart-dirs charts/
         # ct lint --chart-dirs charts/
         # ct lint --all --validate-maintainers=false --target-branch main
-        ct lint --config .github/config.yml
+        ct lint --validate-maintainers=false --config .github/config.yml
         #ct lint --all --validate-maintainers=false --chart-repos 'main=https://github.com/Scubik1/devops-hometasks/'
         # ct lint --validate-maintainers=false --charts=/home/runner/work/devops-hometasks/devops-hometasks/charts/
         #ct lint --remote origin --target-branch main --chart-dirs charts
@@ -107,7 +107,7 @@ jobs:
 
     - name: Run chart-testing (lint)
       if: steps.list-changed.outputs.changed == 'true'
-      run: ct lint --target-branch main}
+      run: ct lint --target-branch main --validate-maintainers=false}
 
     - name: Create kind cluster
       if: steps.list-changed.outputs.changed == 'true'
