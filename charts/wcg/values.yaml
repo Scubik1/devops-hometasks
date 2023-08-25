@@ -11,7 +11,7 @@ container:
 
 image:
   repository: ghcr.io/scubik1/wcg
-  tag: latest
+  tag: ""
 
 ingress:
   host: 'wcg.local'
