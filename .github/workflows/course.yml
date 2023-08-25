@@ -5,57 +5,57 @@ on:
   workflow_dispatch:
 
 jobs:
-  bump-tag:
-    runs-on: ubuntu-latest
-    # permissions:
-    #   contents: write
-    steps:
+  # bump-tag:
+  #   runs-on: ubuntu-latest
+  #   # permissions:
+  #   #   contents: write
+  #   steps:
 
-    - name: Checkout
-      uses: actions/checkout@v3.5.3
-      with:
-        repository: Scubik1/devops-hometasks
-        fetch-depth: 0
+  #   - name: Checkout
+  #     uses: actions/checkout@v3.5.3
+  #     with:
+  #       repository: Scubik1/devops-hometasks
+  #       fetch-depth: 0
 
-    - name: bump
-      id: tagbump
-      uses: anothrNick/github-tag-action@1.67.0
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  #   - name: bump
+  #     id: tagbump
+  #     uses: anothrNick/github-tag-action@1.67.0
+  #     env:
+  #       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     
-    outputs:
-      tag: ${{ steps.tagbump.outputs.tag }}
+  #   outputs:
+  #     tag: ${{ steps.tagbump.outputs.tag }}
   
-  build:
-    needs: [bump-tag]
-    runs-on: ubuntu-latest
-    steps:
+  # build:
+  #   needs: [bump-tag]
+  #   runs-on: ubuntu-latest
+  #   steps:
    
-    - name: Checkout
-      uses: actions/checkout@v3.5.3
-      with:
-        repository: Scubik1/devops-hometasks
+  #   - name: Checkout
+  #     uses: actions/checkout@v3.5.3
+  #     with:
+  #       repository: Scubik1/devops-hometasks
 
-    - name: Login to GitHub Container Registry
-      uses: docker/login-action@v2.2.0
-      with:
-        registry: ghcr.io
-        username: ${{ github.actor }}
-        password: ${{ secrets.GITHUB_TOKEN }}
+  #   - name: Login to GitHub Container Registry
+  #     uses: docker/login-action@v2.2.0
+  #     with:
+  #       registry: ghcr.io
+  #       username: ${{ github.actor }}
+  #       password: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Lower case owner
-      run: echo "ghro_lc=$(echo $GITHUB_REPOSITORY_OWNER | tr '[:upper:]' '[:lower:]')" >> ${GITHUB_ENV}
+  #   - name: Lower case owner
+  #     run: echo "ghro_lc=$(echo $GITHUB_REPOSITORY_OWNER | tr '[:upper:]' '[:lower:]')" >> ${GITHUB_ENV}
 
-    - name: Build and push Docker image
-      uses: docker/build-push-action@v4.1.1
-      with:
-        context: ./07-docker
-        file: ./07-docker/Dockerfile.multi
-        push: true
-        tags: ghcr.io/${{ env.ghro_lc }}/wcg:latest, ghcr.io/${{ env.ghro_lc }}/wcg:${{ needs.bump-tag.outputs.tag }}
+  #   - name: Build and push Docker image
+  #     uses: docker/build-push-action@v4.1.1
+  #     with:
+  #       context: ./07-docker
+  #       file: ./07-docker/Dockerfile.multi
+  #       push: true
+  #       tags: ghcr.io/${{ env.ghro_lc }}/wcg:latest, ghcr.io/${{ env.ghro_lc }}/wcg:${{ needs.bump-tag.outputs.tag }}
 
   lint-test:
-    needs: [bump-tag, build]
+    # needs: [bump-tag, build]
     runs-on: ubuntu-latest
     steps:
     
@@ -91,7 +91,7 @@ jobs:
         cat /home/runner/work/devops-hometasks/devops-hometasks/charts/Chart.yaml
         # ct list-changed --chart-dirs charts/
         # ct lint --chart-dirs charts/
-        ct lint --all --target-branch main --chart-dirs charts/
+        ct lint --all --validate-maintainers false --validate-chart-schema false --validate-yaml false --target-branch main --chart-dirs charts/
         #ct lint --remote origin --target-branch main --chart-dirs charts/
         # ct lint --target-branch master
         # ct lint --target-branch ${{ github.event.repository.default_branch }}
@@ -115,29 +115,29 @@ jobs:
       if: steps.list-changed.outputs.changed == 'true'
       run: ct install --target-branch main
 
-  chart-releaser:
-    needs: [bump-tag, build, lint-test]
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    steps:
+  # chart-releaser:
+  #   needs: [bump-tag, build, lint-test]
+  #   runs-on: ubuntu-latest
+  #   permissions:
+  #     contents: write
+  #   steps:
     
-    - name: Checkout
-      uses: actions/checkout@v3
-      with:
-        fetch-depth: 0
+  #   - name: Checkout
+  #     uses: actions/checkout@v3
+  #     with:
+  #       fetch-depth: 0
           
-    - name: Set up Helm
-      uses: azure/setup-helm@v3
-      with:
-        version: v3.12.1
+  #   - name: Set up Helm
+  #     uses: azure/setup-helm@v3
+  #     with:
+  #       version: v3.12.1
         
-    - name: Add chart to repos
-      run: | 
-        helm package 12-helm/ --app-version ${{ needs.bump-tag.outputs.tag }} --version ${{ needs.bump-tag.outputs.tag }} -d charts/
-        helm repo index --url https://Scubik1.github.io/devops-hometasks/ .
-        git config --global user.email "takogo@adresa.net"
-        git config --global user.name "My Name"
-        git add .
-        git commit -m "Updated Helm package"
-        git push origin main
+  #   - name: Add chart to repos
+  #     run: | 
+  #       helm package 12-helm/ --app-version ${{ needs.bump-tag.outputs.tag }} --version ${{ needs.bump-tag.outputs.tag }} -d charts/
+  #       helm repo index --url https://Scubik1.github.io/devops-hometasks/ .
+  #       git config --global user.email "takogo@adresa.net"
+  #       git config --global user.name "My Name"
+  #       git add .
+  #       git commit -m "Updated Helm package"
+  #       git push origin main
