@@ -2,8 +2,17 @@ apiVersion: v1
 entries:
   wcg:
   - apiVersion: v2
+    appVersion: 0.32.0
+    created: "2023-08-25T16:26:34.441305832Z"
+    description: WCG Chart
+    digest: 3d9ff375c8225bf8a08c751b3919538125ee2296a25203667cb9cf711f2130ee
+    name: wcg
+    urls:
+    - https://Scubik1.github.io/devops-hometasks/charts/wcg-0.32.0.tgz
+    version: 0.32.0
+  - apiVersion: v2
     appVersion: 0.31.0
-    created: "2023-08-25T16:23:38.126919103Z"
+    created: "2023-08-25T16:26:34.440955132Z"
     description: WCG Chart
     digest: 53ba3c800ab48d19f771d61d8f1c2f12b205fd18e46148120633d6e188a6adc7
     name: wcg
@@ -12,7 +21,7 @@ entries:
     version: 0.31.0
   - apiVersion: v2
     appVersion: 0.30.0
-    created: "2023-08-25T16:23:38.1266948Z"
+    created: "2023-08-25T16:26:34.440671332Z"
     description: WCG Chart
     digest: 9d2bc389f0a2e060d7b0146767faf1871bf39136198cb7c5e0af6befcb9141fb
     name: wcg
@@ -21,7 +30,7 @@ entries:
     version: 0.30.0
   - apiVersion: v2
     appVersion: 0.29.0
-    created: "2023-08-25T16:23:38.126457097Z"
+    created: "2023-08-25T16:26:34.440396532Z"
     description: WCG Chart
     digest: cab493f009d0c516f04525e8fa54aaea89eca6458194cfdcb238ac892cc0c597
     name: wcg
@@ -30,7 +39,7 @@ entries:
     version: 0.29.0
   - apiVersion: v2
     appVersion: 0.25.0
-    created: "2023-08-25T16:23:38.126166294Z"
+    created: "2023-08-25T16:26:34.440137132Z"
     description: WCG Chart
     digest: d124ee339620280241024fec3b6cc13c7a7ca22cfc9716b913562b643cc21da1
     name: wcg
@@ -39,7 +48,7 @@ entries:
     version: 0.25.0
   - apiVersion: v2
     appVersion: 0.24.0
-    created: "2023-08-25T16:23:38.12591959Z"
+    created: "2023-08-25T16:26:34.439865132Z"
     description: WCG Chart
     digest: 7ced16d045b0ed220f0009c4b1ffcefc079ad200a62604bd58a59188432c52d2
     name: wcg
@@ -48,11 +57,11 @@ entries:
     version: 0.24.0
   - apiVersion: v2
     appVersion: 0.23.0
-    created: "2023-08-25T16:23:38.125677887Z"
+    created: "2023-08-25T16:26:34.439583632Z"
     description: WCG Chart
     digest: c1ebf0d6d650395ed2cdf4cbe170d8db6c1ffafa4fd5f27d39a6ad2e8204adc3
     name: wcg
     urls:
     - https://Scubik1.github.io/devops-hometasks/charts/wcg-0.23.0.tgz
     version: 0.23.0
-generated: "2023-08-25T16:23:38.125192281Z"
+generated: "2023-08-25T16:26:34.439080032Z"
