@@ -63,7 +63,7 @@ jobs:
       uses: actions/checkout@v3.5.3
       with:
         fetch-depth: 0
-        repository: Scubik1/devops-hometasks
+        repository: https://github.com/Scubik1/devops-hometasks
        # path: '12-helm'
 
     - name: Set up Helm
@@ -92,6 +92,8 @@ jobs:
         # ct list-changed --chart-dirs charts/
         # ct lint --chart-dirs charts/
         ct lint --all --validate-maintainers=false --chart-repos 'main=https://github.com/Scubik1/devops-hometasks/' --target-branch=main
+        ct lint --all --validate-maintainers=false --chart-repos 'main=https://github.com/Scubik1/devops-hometasks/' --target-branch main
+        ct lint --all --validate-maintainers=false --chart-repos 'main=https://github.com/Scubik1/devops-hometasks/'
         ct lint --validate-maintainers=false --charts=/home/runner/work/devops-hometasks/devops-hometasks/charts/
         #ct lint --remote origin --target-branch main --chart-dirs charts/
         # ct lint --target-branch master
