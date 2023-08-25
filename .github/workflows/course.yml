@@ -91,9 +91,10 @@ jobs:
         cat /home/runner/work/devops-hometasks/devops-hometasks/charts/Chart.yaml
         # ct list-changed --chart-dirs charts/
         # ct lint --chart-dirs charts/
-        ct lint --all --validate-maintainers=false --chart-repos 'main=https://github.com/Scubik1/devops-hometasks/' --target-branch main
-        ct lint --all --validate-maintainers=false --remote origin --target-branch main --chart-dirs charts/
-        ct lint --all --validate-maintainers=false --chart-repos 'main=https://github.com/Scubik1/devops-hometasks/'
+        # ct lint --all --validate-maintainers=false --chart-repos 'main=https://github.com/Scubik1/devops-hometasks/' --target-branch main
+        ct lint --all --validate-maintainers=false --remote origin --target-branch main --chart-dirs charts
+        ct lint --config .github/config.yml
+        #ct lint --all --validate-maintainers=false --chart-repos 'main=https://github.com/Scubik1/devops-hometasks/'
         ct lint --validate-maintainers=false --charts=/home/runner/work/devops-hometasks/devops-hometasks/charts/
         #ct lint --remote origin --target-branch main --chart-dirs charts
         # ct lint --target-branch master
