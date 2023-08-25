@@ -82,6 +82,9 @@ jobs:
       #   version: 'v3.7.1'
       #   yamale_version: 4.0.4
 
+    - name: Fetch history
+      run: git fetch --prune --unshallow
+
     - name: Run chart-testing (list-changed)
       id: list-changed
       run: |
@@ -91,8 +94,8 @@ jobs:
         cat /home/runner/work/devops-hometasks/devops-hometasks/charts/Chart.yaml
         # ct list-changed --chart-dirs charts/
         # ct lint --chart-dirs charts/
-        ct lint --all --validate-maintainers=false --chart-repos 'main=https://github.com/Scubik1/devops-hometasks/' --target-branch=main
         ct lint --all --validate-maintainers=false --chart-repos 'main=https://github.com/Scubik1/devops-hometasks/' --target-branch main
+        ct lint --all --validate-maintainers=false --target-branch main --chart-dirs charts/
         ct lint --all --validate-maintainers=false --chart-repos 'main=https://github.com/Scubik1/devops-hometasks/'
         ct lint --validate-maintainers=false --charts=/home/runner/work/devops-hometasks/devops-hometasks/charts/
         #ct lint --remote origin --target-branch main --chart-dirs charts/
