@@ -3,7 +3,7 @@ name: Course
 on: 
   push:
     paths: 
-    - '12-helm/'
+    - '12-helm/*'
     - '07-docker/Dockerfile.multi'
   workflow_dispatch:
 
