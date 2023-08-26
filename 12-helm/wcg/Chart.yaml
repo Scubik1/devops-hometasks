@@ -1,27 +1,5 @@
-<<<<<<< HEAD
-<<<<<<< HEAD:12-helm/wcg/Chart.yaml
 apiVersion: v2
-name: wcg
-version: 1.0.0
+appVersion: 1.2.0
 description: WCG Chart
-appVersion: 1.0.0
-=======
-=======
-<<<<<<< HEAD:12-helm/Chart.yaml
->>>>>>> de697a2 (Updated)
-apiVersion: v2
 name: wcg
 version: 1.2.0
-description: WCG Chart
-appVersion: 1.0.0
-<<<<<<< HEAD
->>>>>>> 4be2d0677690ccc461940704c86d1beaf4a4e3c4:12-helm/Chart.yaml
-=======
-=======
-apiVersion: v2
-name: wcg
-version: 1.0.0
-description: WCG Chart
-appVersion: 1.0.0
->>>>>>> f2ea62c (Added wcg):12-helm/wcg/Chart.yaml
->>>>>>> de697a2 (Updated)

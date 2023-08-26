@@ -1,28 +1,3 @@
-<<<<<<< HEAD
-<<<<<<< HEAD:12-helm/wcg/values.yaml
-replicas: 2
-
-service:
-  name: wcg
-  port: 80
-
-container:
-  label: wcg
-  port: 8888
-  name: wcg
-
-image:
-  repository: ghcr.io/scubik1/wcg
-  tag: latest
-
-ingress:
-  host: 'wcg.local'
-  path: /
-  pathType: Prefix
-=======
-=======
-<<<<<<< HEAD:12-helm/values.yaml
->>>>>>> de697a2 (Updated)
 replicas: 2
 
 service:
@@ -42,28 +17,3 @@ ingress:
   host: 'wcg.local'
   path: /
   pathType: Prefix
-<<<<<<< HEAD
->>>>>>> 4be2d0677690ccc461940704c86d1beaf4a4e3c4:12-helm/values.yaml
-=======
-=======
-replicas: 2
-
-service:
-  name: wcg
-  port: 80
-
-container:
-  label: wcg
-  port: 8888
-  name: wcg
-
-image:
-  repository: ghcr.io/scubik1/wcg
-  tag: latest
-
-ingress:
-  host: 'wcg.local'
-  path: /
-  pathType: Prefix
->>>>>>> f2ea62c (Added wcg):12-helm/wcg/values.yaml
->>>>>>> de697a2 (Updated)
