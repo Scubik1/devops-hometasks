@@ -6,5 +6,4 @@ FROM alpine:latest
 RUN apk add gcompat
 COPY --from=builder /tmp/wcg/artifacts/linux /opt/wcg
 EXPOSE 8888
-
 CMD /opt/wcg/word-cloud-generator
