@@ -2,7 +2,9 @@ name: Course
 
 on: 
   push:
-    paths: 12-helm/, 07-docker/Dockerfile.multi
+    paths: 
+    - '12-helm/'
+    - '07-docker/Dockerfile.multi'
   workflow_dispatch:
 
 jobs:
