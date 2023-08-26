@@ -2,14 +2,14 @@ apiVersion: v1
 entries:
   wcg:
   - apiVersion: v2
-    appVersion: 0.32.0
-    created: "2023-08-25T16:26:34.441305832Z"
+    appVersion: 0.42.0
+    created: "2023-08-26T12:55:34.441305832Z"
     description: WCG Chart
     digest: 3d9ff375c8225bf8a08c751b3919538125ee2296a25203667cb9cf711f2130ee
     name: wcg
     urls:
-    - https://Scubik1.github.io/devops-hometasks/charts/wcg-0.32.0.tgz
-    version: 0.32.0
+    - https://Scubik1.github.io/devops-hometasks/charts/wcg-0.42.0.tgz
+    version: 0.042.0
   - apiVersion: v2
     appVersion: 0.31.0
     created: "2023-08-25T16:26:34.440955132Z"
