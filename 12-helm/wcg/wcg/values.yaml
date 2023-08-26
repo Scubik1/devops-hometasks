@@ -1,0 +1,19 @@
+replicas: 2
+
+service:
+  name: wcg
+  port: 80
+
+container:
+  label: wcg
+  port: 8888
+  name: wcg
+
+image:
+  repository: ghcr.io/scubik1/wcg
+  tag: ""
+
+ingress:
+  host: 'wcg.local'
+  path: /
+  pathType: Prefix
