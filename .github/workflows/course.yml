@@ -78,8 +78,11 @@ jobs:
       run: | 
         cat 12-helm/wcg/Chart.yaml
         helm package 12-helm/wcg --app-version ${{ needs.bump-tag.outputs.tag }} --version ${{ needs.bump-tag.outputs.tag }} -d 12-helm/
-        tar -xzvf 12-helm/wcg-${{ needs.bump-tag.outputs.tag }}.tgz
+        tar -xzvf 12-helm/wcg-${{ needs.bump-tag.outputs.tag }}.tgz 12-helm/wcg/
+        echo "ls -lah 12-helm/wcg/"
         ls -lah 12-helm/wcg/
+        echo "ls -lah 12-helm/"
+        ls -lah 12-helm/
         cat 12-helm/wcg/Chart.yaml
         # helm repo index --url https://Scubik1.github.io/devops-hometasks/ .
         # git config --global user.email "takogo@adresa.net"
@@ -97,25 +100,25 @@ jobs:
     - name: Run chart-testing (install)
       run: ct install --all --target-branch ${{ github.event.repository.default_branch }}
 
-  chart-releaser:
-    needs: [bump-tag, build, lint-test]
-    runs-on: ubuntu-latest
-    steps:
+  # chart-releaser:
+  #   needs: [bump-tag, build, lint-test]
+  #   runs-on: ubuntu-latest
+  #   steps:
     
-    - name: Checkout
-      uses: actions/checkout@v3
+  #   - name: Checkout
+  #     uses: actions/checkout@v3
           
-    - name: Set up Helm
-      uses: azure/setup-helm@v3
-      with:
-        version: v3.12.1
+  #   - name: Set up Helm
+  #     uses: azure/setup-helm@v3
+  #     with:
+  #       version: v3.12.1
         
-    - name: Add chart to repos
-      run: | 
-        helm package 12-helm/ --app-version ${{ needs.bump-tag.outputs.tag }} --version ${{ needs.bump-tag.outputs.tag }} -d charts/
-        helm repo index --url https://Scubik1.github.io/devops-hometasks/ .
-        git config --global user.email "takogo@adresa.net"
-        git config --global user.name "My Name"
-        git add .
-        git commit -m "Updated Helm package"
-        git push origin main
+  #   - name: Add chart to repos
+  #     run: | 
+  #       helm package 12-helm/ --app-version ${{ needs.bump-tag.outputs.tag }} --version ${{ needs.bump-tag.outputs.tag }} -d charts/
+  #       helm repo index --url https://Scubik1.github.io/devops-hometasks/ .
+  #       git config --global user.email "takogo@adresa.net"
+  #       git config --global user.name "My Name"
+  #       git add .
+  #       git commit -m "Updated Helm package"
+  #       git push origin main
