@@ -8,22 +8,20 @@ on:
 jobs:
   bump-tag:
     runs-on: ubuntu-latest
-    # permissions:
-    #   contents: write
     steps:
 
     - name: Checkout
       uses: actions/checkout@v3.5.3
-      with:
-        repository: Scubik1/devops-hometasks
-        fetch-depth: 0
+      # with:
+      #   repository: Scubik1/devops-hometasks
+      #   # fetch-depth: 0
 
     - name: bump
       id: tagbump
       uses: anothrNick/github-tag-action@1.67.0
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    
+ 
     outputs:
       tag: ${{ steps.tagbump.outputs.tag }}
   
@@ -34,8 +32,8 @@ jobs:
    
     - name: Checkout
       uses: actions/checkout@v3.5.3
-      with:
-        repository: Scubik1/devops-hometasks
+      # with:
+      #   repository: Scubik1/devops-hometasks
 
     - name: Login to GitHub Container Registry
       uses: docker/login-action@v2.2.0
@@ -91,14 +89,14 @@ jobs:
   chart-releaser:
     needs: [bump-tag, build, lint-test]
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
+    # permissions:
+    #   contents: write
     steps:
     
     - name: Checkout
       uses: actions/checkout@v3
-      with:
-        fetch-depth: 0
+      # with:
+      #   fetch-depth: 0
           
     - name: Set up Helm
       uses: azure/setup-helm@v3
