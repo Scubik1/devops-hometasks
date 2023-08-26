@@ -78,7 +78,7 @@ jobs:
       run: | 
         cat 12-helm/wcg/Chart.yaml
         helm package 12-helm/wcg --app-version ${{ needs.bump-tag.outputs.tag }} --version ${{ needs.bump-tag.outputs.tag }} -d 12-helm/
-        tar -xzvf 12-helm/wcg-${{ needs.bump-tag.outputs.tag }}.tgz --directory=12-helm/wcg/
+        tar -xzvf 12-helm/wcg-${{ needs.bump-tag.outputs.tag }}.tgz --directory=12-helm/
         echo "ls -lah 12-helm/wcg/"
         ls -lah 12-helm/wcg/
         echo "ls -lah 12-helm/"
