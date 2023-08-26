@@ -84,12 +84,6 @@ jobs:
         echo "ls -lah 12-helm/"
         ls -lah 12-helm/
         cat 12-helm/wcg/Chart.yaml
-        # helm repo index --url https://Scubik1.github.io/devops-hometasks/ .
-        # git config --global user.email "takogo@adresa.net"
-        # git config --global user.name "My Name"
-        # git add .
-        # git commit -m "Updated Helm package"
-        # git push origin main
 
     - name: Run chart-testing (lint)
       run: ct lint --all --target-branch ${{ github.event.repository.default_branch }} --validate-maintainers=false
