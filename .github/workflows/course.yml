@@ -77,8 +77,8 @@ jobs:
     - name: Create package
       run: | 
         cat 12-helm/wcg/Chart.yaml
-        helm package 12-helm/wcg --app-version ${{ needs.bump-tag.outputs.tag }} --version ${{ needs.bump-tag.outputs.tag }} -d 12-helm/
-        tar -xzvf 12-helm/wcg-${{ needs.bump-tag.outputs.tag }}.tgz --directory=12-helm/
+        helm package 12-helm/wcg --app-version ${{ needs.bump-tag.outputs.tag }} --version ${{ needs.bump-tag.outputs.tag }} -d 12-helm
+        tar -xzvf 12-helm/wcg-${{ needs.bump-tag.outputs.tag }}.tgz --directory=12-helm
         echo "ls -lah 12-helm/wcg/"
         ls -lah 12-helm/wcg/
         echo "ls -lah 12-helm/"
@@ -86,13 +86,13 @@ jobs:
         cat 12-helm/wcg/Chart.yaml
 
     - name: Run chart-testing (lint)
-      run: ct lint --all --target-branch ${{ github.event.repository.default_branch }} --validate-maintainers=false
+      run: ct lint --all --target-branch ${{ github.event.repository.default_branch }} --validate-maintainers=false --chart-dirs 12-helm
 
     - name: Create kind cluster
       uses: helm/kind-action@v1.7.0
 
     - name: Run chart-testing (install)
-      run: ct install --all --target-branch ${{ github.event.repository.default_branch }}
+      run: ct install --all --target-branch ${{ github.event.repository.default_branch }} --chart-dirs 12-helm
 
     - name: Add chart to repos
       run: | 
