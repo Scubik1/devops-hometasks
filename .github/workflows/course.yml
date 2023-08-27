@@ -1,0 +1,100 @@
+name: Course
+env:
+  CHARTS_DIR         : 12-helm
+  CHART_PROJECT_PATH : 12-helm/wcg
+  DOCKER_DIR         : 07-docker
+  DOCKER_FILE        : Dockerfile.multi
+  
+on: 
+  push:
+    paths:
+    - '12-helm/wcg/*'
+    - '07-docker/Dockerfile.multi'
+  workflow_dispatch:
+
+jobs:
+  bump-tag:
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Checkout
+      uses: actions/checkout@v3.5.3
+
+    - name: bump
+      id: tagbump
+      uses: anothrNick/github-tag-action@1.67.0
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+ 
+    outputs:
+      tag: ${{ steps.tagbump.outputs.tag }}
+  
+  build:
+    needs: [bump-tag]
+    runs-on: ubuntu-latest
+    steps:
+   
+    - name: Checkout
+      uses: actions/checkout@v3.5.3
+
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@v2.2.0
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Lower case owner
+      run: echo "ghro_lc=$(echo $GITHUB_REPOSITORY_OWNER | tr '[:upper:]' '[:lower:]')" >> ${GITHUB_ENV}
+
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v4.1.1
+      with:
+        context: "./${{ env.DOCKER_DIR }}"
+        file: "./${{ env.DOCKER_DIR }}/${{ env.DOCKER_FILE }}"
+        push: true
+        tags: ghcr.io/${{ env.ghro_lc }}/wcg:latest, ghcr.io/${{ env.ghro_lc }}/wcg:${{ needs.bump-tag.outputs.tag }}
+
+  test_and_releaser:
+    needs: [bump-tag, build]
+    runs-on: ubuntu-latest
+    steps:
+    
+    - name: Checkout
+      uses: actions/checkout@v3.5.3
+
+    - name: Set up Helm
+      uses: azure/setup-helm@v3
+      with:
+        version: v3.12.1
+
+    - uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+        check-latest: true
+
+    - name: Set up chart-testing
+      uses: helm/chart-testing-action@v2.4.0
+
+    - name: Create package
+      run: |
+        helm package ${{ env.CHART_PROJECT_PATH }} --app-version ${{ needs.bump-tag.outputs.tag }} --version ${{ needs.bump-tag.outputs.tag }} -d ${{ env.CHARTS_DIR }}
+        tar -xzvf "${{ env.CHART_PROJECT_PATH }}-${{ needs.bump-tag.outputs.tag }}.tgz" --directory=${{ env.CHARTS_DIR }}
+
+    - name: Run chart-testing (lint)
+      run: ct lint --all --target-branch ${{ github.event.repository.default_branch }} --validate-maintainers=false --chart-dirs ${{ env.CHARTS_DIR }}
+
+    - name: Create kind cluster
+      uses: helm/kind-action@v1.7.0
+
+    - name: Run chart-testing (install)
+      run: ct install --all --target-branch ${{ github.event.repository.default_branch }} --chart-dirs ${{ env.CHARTS_DIR }}
+
+    - name: Add chart to repos
+      run: |
+        helm repo index --url https://Scubik1.github.io/devops-hometasks/ .
+        git config --global user.email "${{ github.actor_id}}+${{ github.actor }}@users.noreply.github.com"
+        git config --global user.name ${{ github.actor }}
+        git add .
+        git commit -m "Updated Helm package"
+        git push origin main
