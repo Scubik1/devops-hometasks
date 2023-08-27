@@ -2,8 +2,17 @@ apiVersion: v1
 entries:
   wcg:
   - apiVersion: v2
+    appVersion: 0.61.0
+    created: "2023-08-27T12:09:03.790428582Z"
+    description: WCG Chart
+    digest: f106c61b21c8c2aa1988546df66df12acdb97f5b874415d97306c06170158f6d
+    name: wcg
+    urls:
+    - https://Scubik1.github.io/devops-hometasks/12-helm/wcg-0.61.0.tgz
+    version: 0.61.0
+  - apiVersion: v2
     appVersion: 0.60.0
-    created: "2023-08-27T00:35:26.982670576Z"
+    created: "2023-08-27T12:09:03.790185081Z"
     description: WCG Chart
     digest: 99c88a2bac3216208a93ef32ea273b9b7ba7f8196afe8c3e0e6a30ce3a4541d2
     name: wcg
@@ -12,7 +21,7 @@ entries:
     version: 0.60.0
   - apiVersion: v2
     appVersion: 0.55.0
-    created: "2023-08-27T00:35:26.982412673Z"
+    created: "2023-08-27T12:09:03.789951179Z"
     description: WCG Chart
     digest: d21f7e0d0e948765c5b7c051c9c6040f04f5dad6894303fa54608e7603134f28
     name: wcg
@@ -21,7 +30,7 @@ entries:
     version: 0.55.0
   - apiVersion: v2
     appVersion: 0.54.0
-    created: "2023-08-27T00:35:26.982189371Z"
+    created: "2023-08-27T12:09:03.789676578Z"
     description: WCG Chart
     digest: 1228e0bce190f9068ae6c2bcc2b416a9f8592652e4b6d8da41775a6b32a6dceb
     name: wcg
@@ -30,7 +39,7 @@ entries:
     version: 0.54.0
   - apiVersion: v2
     appVersion: 0.48.0
-    created: "2023-08-27T00:35:26.984472196Z"
+    created: "2023-08-27T12:09:03.800460044Z"
     description: WCG Chart
     digest: 18ed0d4f2950d426b0a60e9290f8a210b1ddca7761b7052ff0793f286d77e392
     name: wcg
@@ -39,7 +48,7 @@ entries:
     version: 0.48.0
   - apiVersion: v2
     appVersion: 0.47.0
-    created: "2023-08-27T00:35:26.984275894Z"
+    created: "2023-08-27T12:09:03.800084542Z"
     description: WCG Chart
     digest: ba422fcc0317fb2b93dad2914cee414d728bbc1edde92ee44b06097119e70c48
     name: wcg
@@ -48,7 +57,7 @@ entries:
     version: 0.47.0
   - apiVersion: v2
     appVersion: 0.46.0
-    created: "2023-08-27T00:35:26.984071691Z"
+    created: "2023-08-27T12:09:03.79975884Z"
     description: WCG Chart
     digest: b59ffcd9772ebc56cb945c1bb61a3032890510591b58908a020a50387a6bc3dc
     name: wcg
@@ -57,7 +66,7 @@ entries:
     version: 0.46.0
   - apiVersion: v2
     appVersion: 0.32.0
-    created: "2023-08-27T00:35:26.983881689Z"
+    created: "2023-08-27T12:09:03.799415938Z"
     description: WCG Chart
     digest: 3d9ff375c8225bf8a08c751b3919538125ee2296a25203667cb9cf711f2130ee
     name: wcg
@@ -66,7 +75,7 @@ entries:
     version: 0.32.0
   - apiVersion: v2
     appVersion: 0.31.0
-    created: "2023-08-27T00:35:26.983698387Z"
+    created: "2023-08-27T12:09:03.799178236Z"
     description: WCG Chart
     digest: 53ba3c800ab48d19f771d61d8f1c2f12b205fd18e46148120633d6e188a6adc7
     name: wcg
@@ -75,7 +84,7 @@ entries:
     version: 0.31.0
   - apiVersion: v2
     appVersion: 0.30.0
-    created: "2023-08-27T00:35:26.983508485Z"
+    created: "2023-08-27T12:09:03.798872535Z"
     description: WCG Chart
     digest: 9d2bc389f0a2e060d7b0146767faf1871bf39136198cb7c5e0af6befcb9141fb
     name: wcg
@@ -84,7 +93,7 @@ entries:
     version: 0.30.0
   - apiVersion: v2
     appVersion: 0.29.0
-    created: "2023-08-27T00:35:26.983297183Z"
+    created: "2023-08-27T12:09:03.791885391Z"
     description: WCG Chart
     digest: cab493f009d0c516f04525e8fa54aaea89eca6458194cfdcb238ac892cc0c597
     name: wcg
@@ -93,7 +102,7 @@ entries:
     version: 0.29.0
   - apiVersion: v2
     appVersion: 0.25.0
-    created: "2023-08-27T00:35:26.98308668Z"
+    created: "2023-08-27T12:09:03.79159899Z"
     description: WCG Chart
     digest: d124ee339620280241024fec3b6cc13c7a7ca22cfc9716b913562b643cc21da1
     name: wcg
@@ -102,11 +111,11 @@ entries:
     version: 0.25.0
   - apiVersion: v2
     appVersion: 0.24.0
-    created: "2023-08-27T00:35:26.982893878Z"
+    created: "2023-08-27T12:09:03.790705584Z"
     description: WCG Chart
     digest: 7ced16d045b0ed220f0009c4b1ffcefc079ad200a62604bd58a59188432c52d2
     name: wcg
     urls:
     - https://Scubik1.github.io/devops-hometasks/charts/wcg-0.24.0.tgz
     version: 0.24.0
-generated: "2023-08-27T00:35:26.981771666Z"
+generated: "2023-08-27T12:09:03.789217275Z"
