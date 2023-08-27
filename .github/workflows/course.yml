@@ -5,7 +5,7 @@ env:
 on: 
   push:
     paths: 
-    - "$CHARTS_DIR/*"
+    - "${{ env.CHART_PROJECT_DIR }}/*"
     - "07-docker/Dockerfile.multi"
   workflow_dispatch:
 
@@ -74,7 +74,8 @@ jobs:
       uses: helm/chart-testing-action@v2.4.0
 
     - name: Create package
-      run: | 
+      if: ${{  }} 
+      run: |
         cat 12-helm/wcg/Chart.yaml
         helm package ${{ env.CHART_PROJECT_DIR }} --app-version ${{ needs.bump-tag.outputs.tag }} --version ${{ needs.bump-tag.outputs.tag }} -d 12-helm
         tar -xzvf "${{ env.CHART_PROJECT_DIR }}-${{ needs.bump-tag.outputs.tag }}.tgz" --directory=${{ env.CHARTS_DIR }}
