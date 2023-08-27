@@ -96,7 +96,7 @@ jobs:
     - name: Add chart to repos
       run: | 
         helm repo index --url https://Scubik1.github.io/devops-hometasks/ .
-        git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+        git config --global user.email "${{ github.actor_id}}+${{ github.actor }}@users.noreply.github.com"
         git config --global user.name ${{ github.actor }}
         git add .
         git commit -m "Updated Helm package"
