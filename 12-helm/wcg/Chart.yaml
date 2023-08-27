@@ -2,4 +2,4 @@ apiVersion: v2
 appVersion: 0.60.0
 description: WCG Chart
 name: wcg
-version: 0.61.0
+version: 0.60.0
