@@ -1,12 +1,12 @@
 name: Course
 env:
-  CHARTS_DIR: "12-helm"
-  CHART_PROJECT_DIR: "12-helm/wcg"
+  CHARTS_DIR: 12-helm
+  CHART_PROJECT_DIR: 12-helm/wcg
 on: 
   push:
-    paths: 
-    - "${{ env.CHART_PROJECT_DIR }}/*"
-    - "07-docker/Dockerfile.multi"
+    paths:
+    - '${{ env.CHART_PROJECT_DIR }}/*'
+    - '07-docker/Dockerfile.multi'
   workflow_dispatch:
 
 jobs:
@@ -74,7 +74,6 @@ jobs:
       uses: helm/chart-testing-action@v2.4.0
 
     - name: Create package
-      if: ${{  }} 
       run: |
         cat 12-helm/wcg/Chart.yaml
         helm package ${{ env.CHART_PROJECT_DIR }} --app-version ${{ needs.bump-tag.outputs.tag }} --version ${{ needs.bump-tag.outputs.tag }} -d 12-helm
