@@ -1,7 +1,10 @@
 name: Course
 env:
-  CHARTS_DIR: 12-helm
-  CHART_PROJECT_DIR: 12-helm/wcg
+  CHARTS_DIR         : 12-helm
+  CHART_PROJECT_PATH : 12-helm/wcg
+  DOCKER_DIR         : 07-docker
+  DOCKER_FILE        : Dockerfile.multi
+  
 on: 
   push:
     paths:
@@ -47,8 +50,8 @@ jobs:
     - name: Build and push Docker image
       uses: docker/build-push-action@v4.1.1
       with:
-        context: ./07-docker
-        file: ./07-docker/Dockerfile.multi
+        context: ./${{ env.DOCKER_DIR }}
+        file: .${{ env.DOCKER_DIR }}/${{ env.DOCKER_FILE }}
         push: true
         tags: ghcr.io/${{ env.ghro_lc }}/wcg:latest, ghcr.io/${{ env.ghro_lc }}/wcg:${{ needs.bump-tag.outputs.tag }}
 
@@ -76,8 +79,8 @@ jobs:
     - name: Create package
       run: |
         cat 12-helm/wcg/Chart.yaml
-        helm package ${{ env.CHART_PROJECT_DIR }} --app-version ${{ needs.bump-tag.outputs.tag }} --version ${{ needs.bump-tag.outputs.tag }} -d 12-helm
-        tar -xzvf "${{ env.CHART_PROJECT_DIR }}-${{ needs.bump-tag.outputs.tag }}.tgz" --directory=${{ env.CHARTS_DIR }}
+        helm package ${{ env.CHART_PROJECT_PATH }} --app-version ${{ needs.bump-tag.outputs.tag }} --version ${{ needs.bump-tag.outputs.tag }} -d ${{ env.CHARTS_DIR }}
+        tar -xzvf "${{ env.CHART_PROJECT_PATH }}-${{ needs.bump-tag.outputs.tag }}.tgz" --directory=${{ env.CHARTS_DIR }}
         echo "ls -lah 12-helm/wcg/"
         ls -lah 12-helm/wcg/
         echo "ls -lah 12-helm/"
@@ -95,7 +98,6 @@ jobs:
 
     - name: Add chart to repos
       run: |
-        echo "${{ github.repositoryUrl }}"
         helm repo index --url https://Scubik1.github.io/devops-hometasks/ .
         git config --global user.email "${{ github.actor_id}}+${{ github.actor }}@users.noreply.github.com"
         git config --global user.name ${{ github.actor }}
