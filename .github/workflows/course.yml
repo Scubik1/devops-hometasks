@@ -51,7 +51,7 @@ jobs:
       uses: docker/build-push-action@v4.1.1
       with:
         context: "./${{ env.DOCKER_DIR }}"
-        file: ".${{ env.DOCKER_DIR }}/${{ env.DOCKER_FILE }}"
+        file: "./${{ env.DOCKER_DIR }}/${{ env.DOCKER_FILE }}"
         push: true
         tags: ghcr.io/${{ env.ghro_lc }}/wcg:latest, ghcr.io/${{ env.ghro_lc }}/wcg:${{ needs.bump-tag.outputs.tag }}
 
