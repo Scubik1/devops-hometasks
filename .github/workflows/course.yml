@@ -5,7 +5,7 @@ env:
 on: 
   push:
     paths:
-    - '${{ env.CHART_PROJECT_DIR }}/*'
+    - '12-helm/wcg/*'
     - '07-docker/Dockerfile.multi'
   workflow_dispatch:
 
