@@ -2,12 +2,12 @@ apiVersion: v1
 entries:
   wcg:
   - apiVersion: v2
-    appVersion: 0.68.0
-    created: "2023-08-27T17:52:49.405392704Z"
+    appVersion: 0.69.0
+    created: "2023-08-27T20:56:06.238998126Z"
     description: WCG Chart
-    digest: 484c0b1b361e22d623e8eb70048d757f8a23a5ccd864f8c0c8abcec971108089
+    digest: 18b679215cb426e9d0a11dc012272a33a3093cbfb680bf976d1a5f9bc445b08d
     name: wcg
     urls:
-    - https://Scubik1.github.io/devops-hometasks/12-helm/wcg-0.68.0.tgz
-    version: 0.68.0
-generated: "2023-08-27T17:52:49.402365385Z"
+    - https://Scubik1.github.io/devops-hometasks/12-helm/wcg-0.69.0.tgz
+    version: 0.69.0
+generated: "2023-08-27T20:56:06.238611626Z"
