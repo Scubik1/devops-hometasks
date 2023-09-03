@@ -2,7 +2,6 @@ resource "kubernetes_ingress_v1" "wcg-ingress" {
   metadata {
     name = var.ingress.name
   }
-
   spec {
     ingress_class_name = var.ingress.name
     rule {
