@@ -13,4 +13,4 @@
 - [Домашнее задание 11](11-kubernetes/Readme.md#домашнее-задание-11) (kubernetes)
 - [Домашнее задание 12](12-helm/Readme.md#домашнее-задание-12) (helm)
 - [Домашнее задание 13](13-terraform/Readme.md#домашнее-задание-13) (terraform)
-- [Курсовой проект](16-argocd/README.md#курсовой-проект) (project)
+- [Курсовой проект](https://github.com/Scubik1/GitOps#курсовой-проект) (project)
