@@ -1,1 +1,17 @@
 # devops-hometasks
+
+    Домашнее задание 1 (introduction)
+    Домашнее задание 2 (git,vagrnat)
+    Домашнее задание 3 (ansible)
+    Домашнее задание 4 (puppet)
+    Домашнее задание 5 (puppet)
+    Домашнее задание 6 (jenkins)
+    Домашнее задание 7 (nexus)
+    Домашнее задание 8 (Dockerfile)
+    Домашнее задание 9 (Jenkinsfile)
+    Домашнее задание 10 (docker-compose)
+    Домашнее задание 11 (github-actions)
+    Домашнее задание 12 (kubernetes)
+    Домашнее задание 13 (helm)
+    Домашнее задание 14 (terraform)
+    Курсовой проект (project)
