@@ -1,6 +1,6 @@
 # devops-hometasks
 
-- [Домашнее задание 1](01-vagrant/Readme.md#домашнее-задание-1) (Git, Vagrnat)
+- [Домашнее задание 1](01-vagrant/Readme.md#домашнее-задание-1) (Vagrnat)
 - [Домашнее задание 2](02-ansible/Readme.md#домашнее-задание-2) (Ansible)
 - [Домашнее задание 3](03-puppet/Readme.md#домашнее-задание-3) (Puppet)
 - [Домашнее задание 4](04-puppet/Readme.md#домашнее-задание-4) (Puppet)
