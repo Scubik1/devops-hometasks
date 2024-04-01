@@ -1,7 +1,7 @@
 # devops-hometasks
 
 - [Домашнее задание 1](01-vagrant/README.md#домашнее-задание-1) (git,vagrnat)
-- [Домашнее задание 2](02-ansible/README.md#домашнее-задание-2) (ansible)
+- [Домашнее задание 2](02-ansible/Radme.md#домашнее-задание-2) (ansible)
 - [Домашнее задание 3](03-puppet/README.md#домашнее-задание-3) (puppet)
 - [Домашнее задание 4](04-puppet/README.md#домашнее-задание-4) (puppet)
 - [Домашнее задание 5]
